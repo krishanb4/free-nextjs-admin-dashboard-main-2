@@ -3,7 +3,7 @@
 import { createWeb3Modal, defaultWagmiConfig } from "@web3modal/wagmi/react";
 
 import { cookieStorage, createStorage, State, WagmiProvider } from "wagmi";
-import { arbitrum, mainnet } from "wagmi/chains";
+import { arbitrum, mainnet, bscTestnet } from "wagmi/chains";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactNode } from "react";
@@ -25,7 +25,7 @@ const metadata = {
 
 const chains = [mainnet, arbitrum];
 const wagmiConfig = defaultWagmiConfig({
-  chains: [mainnet, ...chains], // required
+  chains: [bscTestnet], // required
   projectId, // required
   metadata, // required
   ssr: true,
@@ -39,7 +39,7 @@ const wagmiConfig = defaultWagmiConfig({
 });
 
 // 3. Create modal
-createWeb3Modal({ wagmiConfig, projectId, chains });
+createWeb3Modal({ wagmiConfig, chains: [bscTestnet], projectId });
 
 export function Web3Modal({
   children,

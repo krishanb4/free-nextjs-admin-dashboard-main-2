@@ -2,13 +2,14 @@
 
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import { useState } from "react";
-import { WagmiProvider, useAccount } from "wagmi";
+import { WagmiProvider, useAccount, useWriteContract } from "wagmi";
 import { writeContract } from "@wagmi/core";
-import { abi } from "../../abis/contractabit.json";
-import { config } from "./config";
+import abi from "../../abis/contractabit.json";
 
 const FormLayout = () => {
   const { isConnected } = useAccount();
+  const { writeContractAsync } = useWriteContract();
+  console.log("🚀 ~ FormLayout ~ isConnected:", isConnected);
   const [formData, setFormData] = useState({
     // Initialize form data state
     personalInformation: {
@@ -51,7 +52,7 @@ const FormLayout = () => {
   };
 
   async function handleDonation() {
-    const result = await writeContract(config, {
+    const result = await writeContractAsync({
       abi,
       address: "0xaf76410dA21b998F30bbB1a2C8F13ceb7BD7d6B5",
       functionName: "Donate",
